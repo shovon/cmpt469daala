@@ -19,6 +19,7 @@
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<link rel='stylesheet' href='katex/katex.min.css'>
 
 		<!-- Printing and PDF exports -->
 		<script>
@@ -54,7 +55,7 @@
 
 				<section>
 					<h2>What Is Daala?</h2>
-					<p>A video codec created to either matches or exceeds the quality of current-generation of video codecs, such a VP9 and HEVC. Currently an ongoing effort by Xiph and Mozilla to introduce a royalty-free video codec.</p>
+					<p>A video codec created to either match or exceed the quality of current-generation of video codecs, such a VP9 and HEVC. Currently an ongoing effort by Xiph and Mozilla to introduce a royalty-free video codec.</p>
 				</section>
 
 				<section>
@@ -131,7 +132,7 @@
 							<h2>What Does JPEG Do?</h2>
 							<ul>
 								<li>
-									Spacial to frequency conversion
+									Spatial to frequency conversion
 									<ul>
 										<li>similar to audio but for images, and instead of 1D, we use 2D</li>
 									</ul>
@@ -162,19 +163,28 @@
 					<section data-background='./dct-example/grayscale-image.png'></section>
 					<section data-background='./dct-example/split-image.png'></section>
 					<section data-background='./dct-example/dct-split-image.png'>
-						<table class='fragment translucent-black-background'>
-							<tr>
-								<td>
-									<p><img src='./dct-example/block-image.png' alt='pre-DCT'></p>
-									<p>Before DCT</p>
-								</td>
-								<td>
-									<p><img src='./dct-example/block-dct-image.png' alt='pre-DCT'></p>
-									<p>After DCT</p>
-								</td>
-							</tr>
-						</table>
+						<div class='fragment translucent-black-background'>
+							<table>
+								<tr>
+									<td>
+										<p><img src='./dct-example/block-image.png' alt='pre-DCT'></p>
+										<p>Before DCT</p>
+									</td>
+									<td>
+										<p><img src='./dct-example/block-dct-image.png' alt='pre-DCT'></p>
+										<p>After DCT</p>
+									</td>
+								</tr>
+							</table>
+						</div>
 					</section>
+					<section data-background='./dct-example/dct-split-image.png'>
+						<div class='translucent-black-background'>
+							<p>The block prior to the DCT: spatial domain. the block after: frequency domain</p>
+							<p>N.B. The top-left pixel in the frequency domain is called DC, and the rest are called AC</p>
+						</div>
+					</section>
+					<section data-background='./dct-example/dct-split-image.png'></section>
 					<section data-background='./dct-example/dct-quantized-split-image.png'>
 						<table class='fragment translucent-black-background'>
 							<tr>
@@ -193,7 +203,11 @@
 						<h2>Run-Length-Encoding (RLE)</h2>
 						<img src='./images/rle.png' alt='RLE'>
 					</section>
-					<section data-background='./dct-example/dct-quantized-image.png'></section>
+					<section data-background='./dct-example/dct-quantized-image.png'>
+						<div class='fragment'>
+							<h2>We Send This</h2>
+						</div>
+					</section>
 					<section data-background='./dct-example/dct-quantized-split-image.png'></section>
 					<section data-background='./dct-example/idct-quantized-split-image.png'></section>
 					<section data-background='./dct-example/idct-quantized-image.png'>
@@ -211,7 +225,6 @@
 						</table>
 					</section>
 
-
 					<section>
 						<p>However, most modern encoders pretty much use a variation of JPEG</p>
 					</section>
@@ -224,30 +237,95 @@
 				<section>
 					<section>
 						<h2>Lapped Transform</h2>
-						<p>Before using the DCT, we apply a pre-filter</p>
+						<p>Before we go ahead and use the DCT, we apply a pre-filter</p>
+						<p class='fragment'><img src='./images/prefilter.png' alt='Prefilter'></p>
 					</section>
 
 					<section>
-						<h2>Lapped Transform</h2>
-						<p>And then, we overlap the results of the pre-filter onto the DCT</p>
+						<p>We then overlap the results of the pre-filter onto the DCT</p>
+						<p><img src='./images/lapping.png' alt='Prefilter'></p>
 					</section>
 
 					<section>
-						<h2>Lapped Transform</h2>
+						<p><img src='./images/lapped-transform-example.png' alt='Lapped Transform Example'></p>
 					</section>
 				</section>
 
 				<section>
-					<h2>Gain-Shape Quantization</h2>
+
+					<section>
+						<h2>Gain-Shape Quantization</h2>
+						<p>A type of vector quantization</p>
+					</section>
+
+					<section>
+						<h2>Vector quantization</h2>
+						<p>Instead of quantizing every scalar elements individually, group adjecent ones and quantize collectively</p>
+					</section>
+
+					<section>
+						<table>
+							<tr>
+								<td><img src='./dct-example/grayscale-image.png' alt='Lena'></td>
+								<td><img src='./images/tuples.png' alt='Lena'></td>
+							</tr>
+						</table>
+					</section>
+
+					<section>
+						<img src='./images/naive-quantization.png' alt='Quantized Tuples'>
+						<p class='fragment'>Problem: lost information + squandered range</p>
+					</section>
+
+					<section>
+						<img src='./images/better-quantization.png' alt='Better quantized tuples'>
+						<p class='fragment'>All quantized regions are used</p>
+					</section>
+
+					<section data-background='./images/sphere.png'>
+						<h2>Gain-Shape Quantization</h2>
+						<ul>
+							<li>
+								Given a block, <strong>we treat it like a vector</strong>
+								<ul>
+									<li>Let's call it <span class='math-katex'>\mathbf{v}</span></li>
+								</ul>
+							</li>
+							<li>
+								Given <span class='math-katex'>\mathbf{v}</span>, we get
+								<ul>
+									<li>The length (gain), which we will call <span class='math-katex'>g</span></li>
+									<li>The direction (shape), which we will call <span class=math-katex>\mathbf{w}</span></li>
+								</ul>
+							</li>
+							<li>We then quantize <span class='math-katex'>g</span> and <span class='math-katex'>\mathbf{w}</span></li>
+						</ul>
+					</section>
+					<section data-background='./images/sphere.png'>
+						<h2>Pyramid Vector Quantization</h2>
+						<ul>
+							<li>Instead of look-up tables, arithmetically group vectors</li>
+							<li>Saves space</li>
+						</ul>
+					</section>
+					<section data-background='./images/sphere.png'>
+						<p>We have a function <span class='math-katex'>G</span> to derive <span class='math-katex'>G(g) = k</span>, <span class='math-katex'>k \in \mathbb{N}</span></p>
+						<p>With <span class='math-katex'>k</span>, we get a <span class='math-katex'>W \subset \mathbb{Z}^N</span> such that <span class='math-katex'>\forall \mathbf{v} \in W (\sum\limits_{v}^{\mathbf{v}} |v| = k)</span></p>
+						<p>
+							We then have a function <span class='math-katex'>Q</span>, such that we can compute <span class='math-katex'>Q(\mathbf{w}|k) = \mathbf{q}</span>, <span class='math-katex'>\mathbf{q} \in W</span>
+						</p>
+					</section>
+
 				</section>
 
 				<section>
-					<h2>Pyramid Vector Quantization</h2>
-				</section>
-
-				<section>
-					<h2>Outright Removing Pixels</h2>
-					<p>Prediction</p>
+					<section>
+						<h2>Removing Pixels</h2>
+						<p>Prediction</p>
+					</section>
+					<section>
+						<p><img src='./images/predictor.png' alt='Prediction'></p>
+					</section>
 				</section>
 
 				<section>
@@ -261,12 +339,42 @@
 					</section>
 					<section>
 						<h2>Chroma From Luma Prediction</h2>
+						<p>We compute a <span class='math-katex'>\alpha_u</span>, <span class='math-katex'>\alpha_v</span>, <span class='math-katex'>\beta_u</span><span class='math-katex'>\beta_v</span>, by performing a linear regression on the U and V channels</p>
+						<p>We can then send <span class='math-katex'>\alpha_u</span>, <span class='math-katex'>\alpha_v</span>, <span class='math-katex'>\beta_u</span><span class='math-katex'>\beta_v</span>, and the decoder should be able to infer the final colour</p>
+						<ul>
+							<li><span class='math-katex'>DC_u = \alpha_u + \beta_uDC_y</span></li>
+							<li><span class='math-katex'>AC_u[x, y] = \beta_uAC_Y[x, y]</span></li>
+							<li><span class='math-katex'>DC_v = \alpha_v + \beta_vDC_y</span></li>
+							<li><span class='math-katex'>AC_v[x, y] = \beta_vAC_Y[x, y]</span></li>
+						</ul>
 					</section>
 				</section>
 
-				<section data-background-video='./videos/parkjoy.mp4,./videos/parkjoy.webm'>
-					<h2>Paint Deringing</h2>
+				<section>
+					<section>
+						<h2>Paint Deringing</h2>
+						<ul>
+							<li>Direction search</li>
+							<li>Boundary pixel</li>
+							<li>Painting</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Some Fun</h2>
+					</section>
+					<section data-background-video='./videos/parkjoy.mp4,./videos/parkjoy.webm'></section>
+					<section>
+						<p>Enough fun; let's ask "to paint or not to paint"</p>
+						<p class='math-katex'>w = \min(1, \alpha\frac{Q^2}{12\sigma^2})</p>
+						<ul>
+							<li><span class='math-katex'>Q</span> is the quantization amount (quality)</li>
+							<li><span class='math-katex'>\alpha</span> is a tunable value between <span>0</span> and <span>1</span></li>
+							<li><span class='math-katex'>\sigma^2</span>is the mean squared distance between decoded image and painted image</li>
+						</ul>
+					</section>
 				</section>
+
+				<section></section>
 
 			</div>
 
@@ -274,6 +382,7 @@
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
+		<script src='katex/katex.min.js'></script>
 
 		<script>
 
@@ -298,6 +407,17 @@
 				]
 			});
 
+		</script>
+
+		<script>
+			Array
+				.prototype
+				.slice
+				.call(document.querySelectorAll('.math-katex'))
+				.forEach(function (el) {
+					// console.log();
+					katex.render(el.innerHTML, el);
+				});
 		</script>
 
 	</body>
