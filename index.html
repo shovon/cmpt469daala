@@ -54,7 +54,7 @@
 
 				<section>
 					<h2>What Is Daala?</h2>
-					<p>An ongoing effort by Xiph and Mozilla to introduce a royalty-free video codec, that either matches, or exceeds the quality of current-generation video codecs, such as VPX and HEVC</p>
+					<p>A video codec created to either matches or exceeds the quality of current-generation of video codecs, such a VP9 and HEVC. Currently an ongoing effort by Xiph and Mozilla to introduce a royalty-free video codec.</p>
 				</section>
 
 				<section>
@@ -63,24 +63,36 @@
 							<h2>Problem: Compressing Images</h2>
 							<p>LZW, RLE, ZIP, etc. work great...</p>
 							<p><small>(Behind, you're seeing a 512 by 512 pixel image, not just a white background)</small></p>
-							<ul class='fragment'>
-								<li>BMP: </li>
-								<li>PNG: </li>
-								<li>JPG: </li>
-							</ul>
+							<table class='fragment'>
+								<tr><th>Image</th><th>Size (bytes)</th></tr>
+								<tr><td>BMP</td><td>786554</td></tr>
+								<tr><td>PNG</td><td>1529</td></tr>
+								<tr><td>JPG</td><td>3598</td></tr>
+							</table>
 						</div>
 					</section>
 
 					<section data-background='./images/lena512color.png'>
-						<div class='translucent-black-background'>
+						<div class='fragment translucent-black-background'>
 							<p>Except not so well for more complex images</p>
-							<ul></ul>
+							<table>
+								<tr><th>Image</th><th>Size (bytes)</th></tr>
+								<tr><td>BMP</td><td>786554</td></tr>
+								<tr><td>PNG</td><td>476235</td></tr>
+								<tr><td>JPG</td><td>408932</td></tr>
+							</table>
 						</div>
 					</section>
 
 					<section data-background='./images/noise.png'>
-						<div class='translucent-black-background'>
+						<div class='fragment translucent-black-background'>
 							<p>Even worse for noise</p>
+							<table>
+								<tr><th>Image</th><th>Size (bytes)</th></tr>
+								<tr><td>BMP</td><td>786554</td></tr>
+								<tr><td>PNG</td><td>788485</td></tr>
+								<tr><td>JPG</td><td>770446</td></tr>
+							</table>
 						</div>
 					</section>
 				</section>
@@ -91,12 +103,16 @@
 						<p>Humans are very forgiving for loss of <em>some</em> quality</p>
 						<table>
 							<tr>
-								<td></td>
-								<td></td>
+								<td><img class='fragment' src='./images/bison.jpg'></td>
+								<td><img class='fragment' src='./images/khubilai-khan-portrait.jpg'></td>
 							</tr>
+						</table>
+					</section>
+					<section>
+						<table>
 							<tr>
-								<td></td>
-								<td></td>
+								<td><img src='./images/girl-with-pearl-earings.jpg'></td>
+								<td><img class='fragment' src='./images/evey-study.jpg'></td>
 							</tr>
 						</table>
 					</section>
@@ -104,28 +120,97 @@
 					<section></section>
 				</section>
 
-
 				<section>
-					<section>
-						<h2>What Does JPEG Do?</h2>
+					<section data-background-video='./videos/visualization.mp4,./videos/visualization.webm'>
+						<div class='translucent-black-background'>
+							<h2>Let's Look At JPEG</h2>
+						</div>
+					</section>
+					<section data-background='./images/2dsin.png'>
+						<div class='fragment translucent-black-background'>
+							<h2>What Does JPEG Do?</h2>
+							<ul>
+								<li>
+									Spacial to frequency conversion
+									<ul>
+										<li>similar to audio but for images, and instead of 1D, we use 2D</li>
+									</ul>
+								</li>
+								<li class='fragment'>
+									Fourier's Theorem
+									<ul>
+										<li><em>&ldquo;A wave is the sum of many sinusoidal waves.&rdquo;</em></li>
+									</ul>
+								</li>
+								<li class='fragment'>DFT is often used to extract the sine waves of a wave (FFT for the fast variant)</li>
+								<li class='fragment'>
+									But we're going to use the DCT
+									<ul>
+										<li>
+											Benefit over DFT
+											<ul>
+												<li class='fragment'>no complex numbers involved</li>
+												<li class='fragment'>wave coefficient packed closer to lower frequencies</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
 					</section>
 
-					<section>
-						<h2>Quantize</h2>
+					<section data-background='./dct-example/grayscale-image.png'></section>
+					<section data-background='./dct-example/split-image.png'></section>
+					<section data-background='./dct-example/dct-split-image.png'>
+						<table class='fragment translucent-black-background'>
+							<tr>
+								<td>
+									<p><img src='./dct-example/block-image.png' alt='pre-DCT'></p>
+									<p>Before DCT</p>
+								</td>
+								<td>
+									<p><img src='./dct-example/block-dct-image.png' alt='pre-DCT'></p>
+									<p>After DCT</p>
+								</td>
+							</tr>
+						</table>
 					</section>
-
-					<section>
+					<section data-background='./dct-example/dct-quantized-split-image.png'>
+						<table class='fragment translucent-black-background'>
+							<tr>
+								<td>
+									<p><img src='./dct-example/block-dct-image.png' alt='pre-DCT'></p>
+									<p>Before Quantization</p>
+								</td>
+								<td>
+									<p><img src='./dct-example/block-dct-quantized-image.png' alt='pre-DCT'></p>
+									<p>After Quantization</p>
+								</td>
+							</tr>
+						</table>
+					</section>
+					<section data-background='./dct-example/dct-quantized-split-image.png'>
 						<h2>Run-Length-Encoding (RLE)</h2>
-						<p>LZW</p>
+						<img src='./images/rle.png' alt='RLE'>
+					</section>
+					<section data-background='./dct-example/dct-quantized-image.png'></section>
+					<section data-background='./dct-example/dct-quantized-split-image.png'></section>
+					<section data-background='./dct-example/idct-quantized-split-image.png'></section>
+					<section data-background='./dct-example/idct-quantized-image.png'>
+						<table class='fragment translucent-black-background'>
+							<tr>
+								<td>
+									<p><img src='./dct-example/grayscale-image.png' alt='pre-DCT'></p>
+									<p>Before Loss</p>
+								</td>
+								<td>
+									<p><img src='./dct-example/idct-quantized-image.png' alt='pre-DCT'></p>
+									<p>After Loss</p>
+								</td>
+							</tr>
+						</table>
 					</section>
 
-					<section>
-						<h2>Lapped Transform</h2>
-					</section>
-
-					<section>
-						<h2>Quantize</h2>
-					</section>
 
 					<section>
 						<p>However, most modern encoders pretty much use a variation of JPEG</p>
@@ -137,7 +222,19 @@
 				</section>
 
 				<section>
-					<h2>Lapped Transform</h2>
+					<section>
+						<h2>Lapped Transform</h2>
+						<p>Before using the DCT, we apply a pre-filter</p>
+					</section>
+
+					<section>
+						<h2>Lapped Transform</h2>
+						<p>And then, we overlap the results of the pre-filter onto the DCT</p>
+					</section>
+
+					<section>
+						<h2>Lapped Transform</h2>
+					</section>
 				</section>
 
 				<section>
@@ -149,7 +246,7 @@
 				</section>
 
 				<section>
-					<h2>We're done: outright remove pixels!</h2>
+					<h2>Outright Removing Pixels</h2>
 					<p>Prediction</p>
 				</section>
 
@@ -167,8 +264,8 @@
 					</section>
 				</section>
 
-				<section>
-					<h2>Let's remove some edge noise: Paint Deringing</h2>
+				<section data-background-video='./videos/parkjoy.mp4,./videos/parkjoy.webm'>
+					<h2>Paint Deringing</h2>
 				</section>
 
 			</div>
