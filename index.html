@@ -118,7 +118,13 @@
 						</table>
 					</section>
 
-					<section></section>
+					<section data-background-video="./videos/cut.mp4,./videos/cut.webm">
+						<div class='fragment translucent-black-background'>
+							<p>
+								<a href='https://youtu.be/Sp7HiqULakk'>https://youtu.be/Sp7HiqULakk</a>
+							</p>
+						</div>
+					</section>
 				</section>
 
 				<section>
@@ -128,7 +134,7 @@
 						</div>
 					</section>
 					<section data-background='./images/2dsin.png'>
-						<div class='fragment translucent-black-background'>
+						<div class='translucent-black-background'>
 							<h2>What Does JPEG Do?</h2>
 							<ul>
 								<li>
@@ -159,6 +165,7 @@
 							</ul>
 						</div>
 					</section>
+					<section data-background='./images/2dsin.png'></section>
 
 					<section data-background='./dct-example/grayscale-image.png'></section>
 					<section data-background='./dct-example/split-image.png'></section>
@@ -249,6 +256,11 @@
 					<section>
 						<p><img src='./images/lapped-transform-example.png' alt='Lapped Transform Example'></p>
 					</section>
+
+					<section>
+						<p>Paper regarding the lapped transform</p>
+						<p><a href="http://thanglong.ece.jhu.edu/Tran/Pub/prepost.pdf">http://thanglong.ece.jhu.edu/Tran/Pub/prepost.pdf</a></p>
+					</section>
 				</section>
 
 				<section>
@@ -316,6 +328,9 @@
 						</p>
 					</section>
 
+					<section>
+						<p>Fischer, T.R. "A pyramid vector quantizer." <em>IEEE Transactions on Information Theory</em>. Issue 4 Volume 32 (1986): 568&mdash;583. Print.</p>
+					</section>
 				</section>
 
 				<section>
@@ -331,10 +346,10 @@
 				<section>
 					<section>
 						<h2>Let's Also Compress Colours!</h2>
-						<ul>
-							<li>Humans don't notice colours as much</li>
-							<li>And even then, colours are 3D; you're practically sending the same image three times if you send RGB; better to distinguish chroma from luma</li>
-							<li>Use YUV</li>
+						<ul class='fragment'>
+							<li class='fragment'>Humans don't notice colours as much</li>
+							<li class='fragment'>And even then, colours are 3D; you're practically sending the same image three times if you send RGB; better to distinguish chroma from luma</li>
+							<li class='fragment'>Use YUV</li>
 						</ul>
 					</section>
 					<section>
@@ -353,20 +368,30 @@
 				<section>
 					<section>
 						<h2>Paint Deringing</h2>
-						<ul>
+						<ul class='fragment'>
 							<li>Direction search</li>
 							<li>Boundary pixel</li>
 							<li>Painting</li>
 						</ul>
 					</section>
 					<section>
+						<p>Algorithm on finding the direction</p>
+						<p><a href="http://jmvalin.ca/notes/intra_paint.pdf">http://jmvalin.ca/notes/intra_paint.pdf</a></p>
+					</section>
+					<section>
 						<h2>Some Fun</h2>
 					</section>
+					<section data-background='./images/desert.jpg'></section>
+					<section data-background='./images/desert-painted.jpg'></section>
+					<section data-background='./images/horse.jpg'></section>
+					<section data-background='./images/horse-painted.jpg'></section>
+					<section data-background='./images/sydney.jpg'></section>
+					<section data-background='./images/sydney-painted.jpg'></section>
 					<section data-background-video='./videos/parkjoy.mp4,./videos/parkjoy.webm'></section>
 					<section>
 						<p>Enough fun; let's ask "to paint or not to paint"</p>
-						<p class='math-katex'>w = \min(1, \alpha\frac{Q^2}{12\sigma^2})</p>
-						<ul>
+						<p class='fragment math-katex'>w = \min(1, \alpha\frac{Q^2}{12\sigma^2})</p>
+						<ul class='fragment'>
 							<li><span class='math-katex'>Q</span> is the quantization amount (quality)</li>
 							<li><span class='math-katex'>\alpha</span> is a tunable value between <span>0</span> and <span>1</span></li>
 							<li><span class='math-katex'>\sigma^2</span>is the mean squared distance between decoded image and painted image</li>
@@ -374,7 +399,10 @@
 					</section>
 				</section>
 
-				<section></section>
+				<section>
+					<p>The end-result</p>
+					<a href="https://people.xiph.org/~xiphmont/demo/daala/update1-tool2b.shtml">https://people.xiph.org/~xiphmont/demo/daala/update1-tool2b.shtml</a>
+				</section>
 
 			</div>
 
