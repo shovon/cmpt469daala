@@ -222,6 +222,7 @@
 						<h2>Run-Length-Encoding (RLE)</h2>
 						<img src='./images/rle.png' alt='RLE'>
 					</section>
+					<section data-background='./dct-example/dct-quantized-split-image.png'></section>
 					<section data-background='./dct-example/dct-quantized-image.png'>
 						<div class='fragment'>
 							<h2>We Send This</h2>
@@ -334,21 +335,21 @@
 					<section data-background='./images/sphere.png'>
 						<h2>Gain-Shape Quantization</h2>
 						<ul>
-							<li>
+							<li class='fragment'>
 								Given a block, <strong>we treat it like a vector</strong>
 								<ul>
 									<li>Let's call it <span class='math-katex'>\mathbf{v}</span></li>
 									<li><span class='math-katex'>\mathbf{v} \in \mathbb{R}^N</span></li>
 								</ul>
 							</li>
-							<li>
+							<li class='fragment'>
 								Given <span class='math-katex'>\mathbf{v}</span>, we get
 								<ul>
 									<li>The length (gain), which we will call <span class='math-katex'>g</span></li>
 									<li>The direction (shape), which we will call <span class=math-katex>\mathbf{w}</span></li>
 								</ul>
 							</li>
-							<li>We then quantize <span class='math-katex'>g</span> and <span class='math-katex'>\mathbf{w}</span></li>
+							<li class='fragment'>We then quantize <span class='math-katex'>g</span> and <span class='math-katex'>\mathbf{w}</span></li>
 						</ul>
 					</section>
 					<section data-background='./images/sphere.png'>
@@ -368,6 +369,8 @@
 
 					<section>
 						<p>Fischer, T.R. "A pyramid vector quantizer." <em>IEEE Transactions on Information Theory</em>. Issue 4 Volume 32 (1986): 568&mdash;583. Print.</p>
+
+						<p>RFC: <a href="https://tools.ietf.org/html/draft-valin-videocodec-pvq">https://tools.ietf.org/html/draft-valin-videocodec-pvq</a></p>
 					</section>
 				</section>
 
@@ -396,9 +399,9 @@
 						<p>We can then send <span class='math-katex'>\alpha_u</span>, <span class='math-katex'>\alpha_v</span>, <span class='math-katex'>\beta_u</span><span class='math-katex'>\beta_v</span>, and the decoder should be able to infer the final colour</p>
 						<ul>
 							<li><span class='math-katex'>DC_u = \alpha_u + \beta_uDC_y</span></li>
-							<li><span class='math-katex'>AC_u[x, y] = \beta_uAC_Y[x, y]</span></li>
+							<li><span class='math-katex'>AC_u[x, y] = \beta_uAC_y[x, y]</span></li>
 							<li><span class='math-katex'>DC_v = \alpha_v + \beta_vDC_y</span></li>
-							<li><span class='math-katex'>AC_v[x, y] = \beta_vAC_Y[x, y]</span></li>
+							<li><span class='math-katex'>AC_v[x, y] = \beta_vAC_y[x, y]</span></li>
 						</ul>
 					</section>
 				</section>
@@ -408,7 +411,6 @@
 						<h2>Paint Deringing</h2>
 						<ul class='fragment'>
 							<li>Direction search</li>
-s
 							<li>Boundary pixel</li>
 							<li>Painting</li>
 						</ul>
