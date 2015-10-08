@@ -59,6 +59,9 @@
 				</section>
 
 				<section>
+					<section>
+						<p>Under Shannon Entropy theory, the performance of lossless compression is bounded by the entropy of the input</p>
+					</section>
 					<section data-background='./images/white-pixel.png'>
 						<div class='fragment translucent-black-background'>
 							<h2>Problem: Compressing Images</h2>
@@ -206,6 +209,15 @@
 							</tr>
 						</table>
 					</section>
+					<section data-background='./dct-example/dct-split-image.png'>
+						<div class='translucent-black-background'>
+							<h2>Quantization in a nutshell</h2>
+							<p>Encoding <span class='math-katex'>f:A \to B</span></p>
+							<p>Decoding <span class='math-katex'>f:B \to C</span></p>
+							<p>Where <span class='math-katex'>B</span>&lt;&gt;<span class='math-katex'>A</span></p>
+							<p>Where <span class='math-katex'>C \subseteq A</span></p>
+						</div>
+					</section>
 					<section data-background='./dct-example/dct-quantized-split-image.png'>
 						<h2>Run-Length-Encoding (RLE)</h2>
 						<img src='./images/rle.png' alt='RLE'>
@@ -254,6 +266,31 @@
 					</section>
 
 					<section>
+						<h2>Prefilter through lifting</h2>
+						<p>Let's go back to the DCT</p>
+						<p>Instead of applying an <span class='math-katex'>O(nlog(n))</span> algorithm, use an <span class='math-katex'>O(1)</span> approximation</p>
+						<p>We use lifting</p>
+					</section>
+
+					<section>
+						<h2>Prefilter and the lifting cont'd</h2>
+						<p><img src='./images/dct-lifting.gif'></p>
+					</section>
+
+					<section>
+						<p>
+							Paper on lifting
+						</p>
+						<p><a href="http://www.sfu.ca/~jiel/papers/c003-bindct-ieee.pdf">http://www.sfu.ca/~jiel/papers/c003-bindct-ieee.pdf</a>
+					</section>
+
+					<section>
+						<p>Same idea for the prefilter</p>
+						<p><img src='./images/prepost.png'></p>
+					</section>
+
+					<section>
+						<p>Result</p>
 						<p><img src='./images/lapped-transform-example.png' alt='Lapped Transform Example'></p>
 					</section>
 
@@ -371,6 +408,7 @@
 						<h2>Paint Deringing</h2>
 						<ul class='fragment'>
 							<li>Direction search</li>
+s
 							<li>Boundary pixel</li>
 							<li>Painting</li>
 						</ul>
